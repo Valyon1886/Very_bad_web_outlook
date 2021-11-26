@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"/>
+
+    <title th:text="${unread_num} + ' | P.S'"></title>
+</head>
+<body style="margin-bottom: 95px; background-color: rgb(49, 48, 48); color:white;" >
+<nav th:replace="/parts/navbar :: navbar"></nav>
+
+<div class="m-5 text-center">
+    <h1 th:text="${unread_num}"></h1>
+    <div style= "border: 2px solid whitesmoke; background-color: #1b1b28; padding: 20px">
+        <div style= "background-color: #1b1b28" th:remove="tag" th:utext="${content}"></div>
+    </div>
+</div>
+
+
+<footer th:replace="/parts/footer :: footer"></footer>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/setActiveNavLink.js}"></script>
+<script type="text/javascript" th:src="@{/js/ws.js}"></script>
+</body>
+</html>

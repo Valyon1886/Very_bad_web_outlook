@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"/>
+
+    <title th:text="'Новое сообщение | P.S'"></title>
+</head>
+<body style = "background-color: rgb(49, 48, 48); color:white;">
+<nav th:replace="/parts/navbar :: navbar"></nav>
+
+<div class="m-5 text-center" >
+<div class=" container">
+    <form method="POST" class="form-signin" th:action="@{/sent}">
+        <h1 class="form-signin-heading text-center">НОВОЕ СООБЩЕНИЕ</h1>
+        <div class="form-group">
+            <label for="email">Получатель</label>
+            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" th:value="${email}">
+        </div>
+
+        <div class="form-group">
+            <label for="sub">Тема</label>
+            <input name="sub" type="text" class="form-control" id="sub" placeholder="Subject" th:value="${sub}">
+        </div>
+
+        <div class="form-group">
+            <label for="text">Текст сообщения</label>
+            <textarea name="text" class="form-control" id="text" rows="6" placeholder="New message" th:value="${text}"></textarea>
+        </div>
+
+
+        <button class="btn btn-lg btn-primary btn-block" style="border-color: #8758ff; background-color: #7d73f5; color: #ffffff" type="submit">Отправить</button>
+    </form>
+</div>
+</div>
+
+<footer th:replace="/parts/footer :: footer"></footer>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/setActiveNavLink.js/}"></script>
+</body>
+</html>
