@@ -10,17 +10,13 @@ import org.springframework.ui.Model;
 
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -118,8 +114,14 @@ public class MessageService {
             String ENCODED_PART_REGEX_PATTERN = "=\\?([^?]+)\\?([^?]+)\\?([^?]+)\\?=";
             Pattern pattern = Pattern.compile(ENCODED_PART_REGEX_PATTERN);
             List<Message> m = new ArrayList<Message>();
+
+            int count = 20;//
+
+            if(inbox.getMessageCount()<20){//
+                count = inbox.getMessageCount();
+            }
             if (method.equals("INBOX")) {
-                for (int i = inbox.getMessageCount(); i > 0; i--) {
+                for (int i = inbox.getMessageCount(); i > inbox.getMessageCount()- count; i--) {//
                     javax.mail.Message m1 = inbox.getMessage(i);
                     Matcher ma = pattern.matcher(m1.getFrom()[0].toString());
                     if (ma.find()) {
@@ -132,7 +134,7 @@ public class MessageService {
 
                 }
             } else {
-                for (int i = inbox.getMessageCount(); i > 0; i--) {
+                for (int i = inbox.getMessageCount(); i > inbox.getMessageCount()- count; i--) {//
                     javax.mail.Message m1 = inbox.getMessage(i);
                     Matcher ma = pattern.matcher(m1.getAllRecipients()[0].toString());
                     if (ma.find()) {
