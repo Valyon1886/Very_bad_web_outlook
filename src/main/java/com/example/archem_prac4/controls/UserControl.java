@@ -68,10 +68,5 @@ public class UserControl {
         model.addAttribute("userForm", user);
         return "user";
     }
-//    @PostMapping("/me")
-//    public String changeEmail(@ModelAttribute("userForm") User userForm, @RequestParam String emails, Model model) {
-//        userService.setNewEmail(userForm, emails);
-//        return "user";
-//    }
 
 }

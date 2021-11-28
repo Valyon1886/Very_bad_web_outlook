@@ -21,17 +21,8 @@
     <div style="align-content: center">
         <form th:action="@{/me}" th:object="${userForm}" method="POST">
 
-            <p>Текущая электронная почта: "<span th:text ="${userEmails}"></span>"</p>
+            <p>Электронная почта: "<span th:text ="${userEmails}"></span>"</p>
 
-            <div class="form-group">
-                <input type="text" th:field="*{emails}" class="form-control mb-1" placeholder="Новая электронная почта"
-                       autofocus="true">
-                <span class="has-error" th:if="${#fields.hasErrors('emails')}" th:errors="*{emails}"></span>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-small"
-                    style="border-color: #8758ff; background-color: #7d73f5; color: #ffffff">Изменить электронную почту
-            </button>
         </form>
     </div>
 </div>

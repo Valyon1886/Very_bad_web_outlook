@@ -1,8 +1,5 @@
 package com.example.archem_prac4.controls;
 
-import com.example.archem_prac4.models.User;
-import com.example.archem_prac4.models.Message;
-import com.sun.mail.imap.IMAPFolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +9,9 @@ import com.example.archem_prac4.services.UserService;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -33,113 +26,12 @@ public class MessageControl {
 
     @GetMapping("/inbox")
     public String getInbox(Model model) throws IOException, MessagingException {
-        //Properties properties = new Properties();
-//        User u1 = userService.getUser();
-//        properties.put("mail.user", u1.getEmails());//"Test6234@yandex.ru");
-//        properties.put("mail.password", u1.getE_secret());//"eaaxzxpvesyyifyj");
-//        properties.put("mail.host", "imap.yandex.ru");
-
-//        Properties properties = messageService.setEmailAdress();
-//        String user1 = properties.getProperty("mail.user");
-//        String password = properties.getProperty("mail.password");
-//        String host = properties.getProperty("mail.host");
-//
-//        Properties prop = new Properties();
-//
-//        prop.put("mail.store.protocol"  , "imaps"  ); //ssl
-//
-//        Store store = Session.getInstance(prop).getStore();
-//
-//        store.connect(host, user1, password);
-//
-//        Folder inbox = store.getFolder("INBOX");
-//
-//        inbox.open(Folder.READ_ONLY);
-//
-//        model.addAttribute("unread_num", inbox.getMessageCount());
-//
-//        String ENCODED_PART_REGEX_PATTERN="=\\?([^?]+)\\?([^?]+)\\?([^?]+)\\?=";
-//        Pattern pattern=Pattern.compile(ENCODED_PART_REGEX_PATTERN);
-//        List<Message> m = new ArrayList<Message>();
-//        for (int i = inbox.getMessageCount(); i >0 ; i--){
-//            javax.mail.Message m1 = inbox.getMessage(i);
-//            Matcher ma =pattern.matcher(m1.getFrom()[0].toString());
-//            if(ma.find()){
-//                m.add(new Message((long) i, m1.getSentDate().toString(), m1.getSubject(),
-//                        MimeUtility.decodeWord(m1.getFrom()[0].toString()),
-//                        m1.getContent().toString()));
-//            }
-//            else m.add(new Message((long) i, m1.getSentDate().toString(), m1.getSubject(),
-//                    m1.getFrom()[0].toString(),
-//                    m1.getContent().toString()));
-//
-//        }
-//        model.addAttribute("mails", m);
-//        inbox.close();
         model = messageService.getMessageList(model, "INBOX", null);
         return "inbox";
     }
 
     @GetMapping("/inbo/{id}")
     public String getInbox(@PathVariable Long id, Model model) throws IOException, MessagingException {
-        //FileInputStream fileInputStream = new FileInputStream("config.properties");
-//        Properties properties = new Properties();
-//        User u1 = userService.getUser();
-//        properties.put("mail.user", u1.getEmails());//"Test6234@yandex.ru");
-//        properties.put("mail.password", u1.getE_secret());//"eaaxzxpvesyyifyj");
-//        properties.put("mail.host", "imap.yandex.ru");
-//
-//        String user1 = properties.getProperty("mail.user");
-//        String password = properties.getProperty("mail.password");
-//        String host = properties.getProperty("mail.host");
-//
-//        Properties prop = new Properties();
-//
-//        prop.put("mail.store.protocol"  , "imaps"  ); //ssl
-//
-//        Store store = Session.getInstance(prop).getStore();
-//
-//        store.connect(host, user1, password);
-//
-//        Folder inbox = store.getFolder("INBOX");
-//
-//        inbox.open(Folder.READ_ONLY);
-//
-//        //javax.mail.Message message = inbox.getMessage(inbox.getMessageCount());
-//        //Multipart mp = (Multipart) message.getContent();
-//        //System.out.println(mp.getContentType());
-//        //BodyPart  bp = mp.getBodyPart(1);
-////        String c = message.getContent().toString();
-////        String mail = message.getFrom().toString();
-////        String sub = message.getSubject();
-////        Object body = message.getContent();
-//        //model.addAttribute("content", c); //тоже в цикл
-//
-//        javax.mail.Message m1 = inbox.getMessage(Math.toIntExact(id));
-//
-//        model.addAttribute("unread_num", m1.getSubject());
-//        model.addAttribute("sent_data", m1.getSentDate().toString());
-//        String contentType = m1.getContentType();
-//        String messageContent="";
-//
-//        if (contentType.contains("multipart")) {
-//            Multipart multiPart = (Multipart) m1.getContent();
-//            int numberOfParts = multiPart.getCount();
-//            for (int partCount = 0; partCount < numberOfParts; partCount++) {
-//                MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
-//                messageContent = part.getContent().toString();
-//            }
-//        }
-//        else if (contentType.contains("text/plain")
-//                || contentType.contains("text/html")) {
-//            Object content = m1.getContent();
-//            if (content != null) {
-//                messageContent = content.toString();
-//            }
-//        }
-//
-//        model.addAttribute("content", messageContent);
-//        inbox.close();
         model = messageService.getMessageList(model, "INBOX", id);
         return "inbo";
     }
@@ -234,64 +126,6 @@ public class MessageControl {
 
     @GetMapping("/outbo/{id}")
     public String getOutbox(@PathVariable Long id, Model model) throws IOException, MessagingException {
-        //FileInputStream fileInputStream = new FileInputStream("config.properties");
-//        Properties properties = new Properties();
-//        User u1 = userService.getUser();
-//        properties.put("mail.user", u1.getEmails());//"Test6234@yandex.ru");
-//        properties.put("mail.password", u1.getE_secret());//"eaaxzxpvesyyifyj");
-//        properties.put("mail.host", "imap.yandex.ru");
-//
-//        String user1 = properties.getProperty("mail.user");
-//        String password = properties.getProperty("mail.password");
-//        String host = properties.getProperty("mail.host");
-//
-//        Properties prop = new Properties();
-//
-//        prop.put("mail.store.protocol"  , "imaps"  ); //ssl
-//
-//        Store store = Session.getInstance(prop).getStore();
-//
-//        store.connect(host, user1, password);
-//
-//        Folder inbox = store.getFolder("Sent");
-//
-//        inbox.open(Folder.READ_ONLY);
-//
-//        //javax.mail.Message message = inbox.getMessage(inbox.getMessageCount());
-//        //Multipart mp = (Multipart) message.getContent();
-//        //System.out.println(mp.getContentType());
-//        //BodyPart  bp = mp.getBodyPart(1);
-////        String c = message.getContent().toString();
-////        String mail = message.getFrom().toString();
-////        String sub = message.getSubject();
-////        Object body = message.getContent();
-//        //model.addAttribute("content", c); //тоже в цикл
-//
-//        javax.mail.Message m1 = inbox.getMessage(Math.toIntExact(id));
-//
-//        model.addAttribute("unread_num", m1.getSubject());
-//        model.addAttribute("sent_data", m1.getSentDate().toString());
-//        String contentType = m1.getContentType();
-//        String messageContent="";
-//
-//        if (contentType.contains("multipart")) {
-//            Multipart multiPart = (Multipart) m1.getContent();
-//            int numberOfParts = multiPart.getCount();
-//            for (int partCount = 0; partCount < numberOfParts; partCount++) {
-//                MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
-//                messageContent = part.getContent().toString();
-//            }
-//        }
-//        else if (contentType.contains("text/plain")
-//                || contentType.contains("text/html")) {
-//            Object content = m1.getContent();
-//            if (content != null) {
-//                messageContent = content.toString();
-//            }
-//        }
-//
-//        model.addAttribute("content", messageContent);
-//        inbox.close();
         model = messageService.getMessageList(model, "Sent", id);
         return "outbo";
     }
@@ -368,7 +202,6 @@ public class MessageControl {
                 .map(e -> e.getValue().toString())
                 .collect(Collectors.toList());
 
-   //     String c = (String) props.get("mail.smtps.host");
         Session session = Session.getDefaultInstance(props,
                 //Аутентификатор - объект, который передает логин и пароль
                 new Authenticator() {
@@ -390,12 +223,6 @@ public class MessageControl {
         message.setText(text);
         //Поехали!!!
         Transport.send(message);
-//        Store store = session.getStore();
-//
-//        store.connect(host, user1, password);
-//
-//        (IMAPFolder) store.getFolder("Sent").getMessage();
-        //Transport.close();
         return "redirect:/";
     }
 
